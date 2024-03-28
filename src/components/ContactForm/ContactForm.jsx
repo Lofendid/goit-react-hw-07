@@ -1,12 +1,12 @@
 import css from './ContactForm.module.css';
 
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsOps';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { nanoid } from 'nanoid';
 import { useId } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 export default function ContactForm() {
   const dispatch = useDispatch();
@@ -29,9 +29,20 @@ export default function ContactForm() {
 
   function handleSubmit(values, actions) {
     const { username: name, userNumber: number } = values;
-    const id = nanoid();
-    const newContact = { name, number, id };
-    dispatch(addContact(newContact));
+    const newContact = { name, number };
+    dispatch(addContact(newContact))
+      .unwrap()
+      .then(() =>
+        toast.success('Successfully added!', {
+          style: {
+            backgroundColor: 'white',
+            color: 'black',
+          },
+        })
+      )
+      .catch(msg => {
+        toast(msg);
+      });
     actions.resetForm();
   }
 
