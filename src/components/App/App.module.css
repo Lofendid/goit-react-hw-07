@@ -8,3 +8,8 @@
 .containerItem {
   margin-bottom: 4rem;
 }
+
+.error {
+  font-weight: bold;
+  color: red;
+}

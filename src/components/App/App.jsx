@@ -48,7 +48,7 @@ function App() {
         </div>
 
         {error && (
-          <p style={{ fontWeight: 'bold', color: 'red' }}>
+          <p className={css.error}>
             Unfortunately, the following error occurred: &quot;{error.message}
             &quot; . Try reloading the page!
           </p>
